@@ -32,7 +32,7 @@ Char: Type
 is_upper(x: Char): Bool
   ?is_upper
 
-
+ 
 
 //Verifies if the character is Lower Case
 
