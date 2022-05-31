@@ -1,0 +1,476 @@
+/type Bool 
+  //true
+  //false
+//
+
+// Negation
+// Returns the opposite of a Bool
+//neg(b: Bool): Bool 
+  //case b {
+    //false: true 
+    //true:  false
+//}
+//jogario:_
+//neg(true)
+
+// And
+// Returns true if both inputs are true
+//and(a: Bool, b: Bool): Bool
+  //case a {
+    //false: false
+    //true : case b {
+            //true: true
+            //false: false
+           //}  
+  //}
+// jogario:_
+//and(true, true)
+
+//Or
+// Returs true if any input is true
+//or(a: Bool, b: Bool): Bool
+  //case a {
+    //true: true
+    //false: case b { 
+            //false: false
+            //true:  true
+          //} 
+  //}
+
+//jogario:_
+ //or(false, true)
+  
+  
+
+
+// Equal
+// Returs true if both inputs are identical
+//eql(a: Bool, b: Bool): Bool
+   //case b { 
+     //false: Bool.not(a)             
+     //true:  a
+     
+   //}
+         
+         
+
+//jogario:_
+ //eql(true, true)
+
+// Basic Exercises involving Nats
+
+
+//inc(a: Nat): Nat  
+ //Nat.succ(a)
+  
+
+// Decrement
+// 2 - 1 = 1
+// 0 - 1 = 0
+//dec(a: Nat): Nat
+  //case a {
+    //zero: 0
+    //succ: a.pred
+  //}
+
+//is_zero(a: Nat): Bool
+   //case a {
+     //zero: true 
+     //succ: false
+   //}
+
+
+
+
+// Basic Exercises involving Pairs
+
+//type Pair <A: Type, B: Type> {
+//new(fst: A, snd: B)
+//}
+
+// Example:
+// Swaps the elements of a pair
+//swap<A: Type, B: Type>(pair: Pair<A,B>): Pair<B,A>
+ // case pair {
+  //  new: Pair.new<B, A>(pair.snd, pair.fst)
+ // }
+
+// Returns the first element of a pair
+//first<A: Type, B: Type>(pair: Pair<A,B>): A
+   //case pair {
+   //new: pair.fst
+   //}
+//jogario:_
+//first!!(Pair.new!!(2, 1))
+
+
+// Returns the second element of a pair
+//second<A: Type, B: Type>(pair: Pair<A,B>): B
+  //case pair { 
+  //new: pair.snd
+  //}
+//jogario:_
+ //second!!(Pair.new!!(3, 5))
+
+/ Applies a function to both elements of a Pair
+//map<A: Type, B: Type>(fn: A -> B, pair: Pair<A,A>): Pair<B,B>
+   //case pair { 
+     //new:Pair.new!!(fn(pair.fst),fn(pair.snd))
+   //
+//jogario:_
+ //map!!(inc, {3,5})
+
+
+// Advanced exercises involving recursion
+
+
+
+// Doubles a number
+//dbl(a: Nat): Nat // double
+  //case a { 
+    //zero: 0
+    //succ: Nat.succ(Nat.succ(dbl(a.pred))) 
+  //
+//jogario:_
+ //dbl(5)
+  
+
+//Addtion
+
+add(a: Nat, b: Nat): Nat
+ case b {
+   zero: a
+   succ: case a {
+           zero: b
+           succ: Nat.succ(add(a.pred, b))
+         } 
+  }       
+
+//jogario:_
+//add(5,5)
+
+
+//Multiplication
+mul(a: Nat, b: Nat): Nat
+ case a {
+   zero: 0 
+   succ: add(b, mul(a.pred, b))
+ }        
+//jogario:_
+//  mul(3,4)
+
+// Subtraction
+
+//sub(a: Nat, b: Nat): Nat
+   //case b { 
+     //zero: a 
+     //succ: case a {
+             //zero: 0
+             //succ: sub(a.pred, b.pred)
+           //}
+   //}        
+//jogario:_
+  //sub(20,14)
+ 
+
+// Factorial
+// 4! = 24
+//fac(a: Nat): Nat 
+  //case a {
+    //zero: 1 
+    //succ:mul(a, fac(Nat.pred(a)))
+  //}
+
+//jogario:_
+//fac(4)
+  
+
+
+
+
+//div(a: Nat, b: Nat): Nat 
+  //case b {
+    //zero: 0
+    //succ: case sub(a, b) {
+            //zero: case Nat.eql(a,b){
+              //true: Nat.succ(0)
+              //false: 0
+                  //}  
+            //succ: Nat.succ(div(sub(a, b), b)) 
+          //}
+  //}        
+//jogario:_
+ //div(45,6)
+  
+
+// Equal
+//eql(a: Nat, b: Nat): Bool // Given 2 numbers, it returns true if the 2 are the same and false if they are different.
+  //case a {
+    //zero: case b {
+            //zero: true
+            //succ: false
+          //}  
+    //succ: case b {
+            //zero: false 
+            //succ: eql(a.pred, b.pred)
+          //} 
+
+  //}        
+// jogario:_
+//  eql(5, 5)
+
+// Do not use the "not" function to create the functions below
+
+// Greater than
+// 2 > 1 = True
+// 3 > 3 = False
+//gtn(a: Nat, b: Nat): Bool // if A > B == True else false
+  //case a { 
+    //zero: false
+    //succ: case b {
+            //zero: true
+            //succ: gtn(a.pred, b.pred)
+            //}
+  //}       
+
+//jogario:_
+//  gtn(12, 11)
+
+// Lower than
+// 1 < 2 = True
+// 3 < 3 = False
+ltn(a: Nat, b: Nat): Bool // if A > B == False else true 
+  case b {
+    zero: false
+    succ: case a { 
+            zero: true
+            succ: ltn(a.pred, b.pred)
+   }
+  }
+//jogario:_
+//   ltn(12, 11) 
+
+
+// Basic exercises involving Lists
+
+// Returns the list without the first element
+//tail<A: Type>(xs: List<A>): List<A>
+//xs.tail
+
+// Returns the length of a list
+//length<A: Type>(xs: List<A>): Nat
+  //case xs { 
+    //nil:  0
+    //cons: Nat.succ(length!(xs.tail))
+  //}
+
+//jogario:_
+// length!([1,3,3,3,3,3,3,3])
+
+// Concatenates two lists
+//concat<A: Type>(xs: List<A>, ys: List<A>): List<A>
+   //case xs { 
+     //nil:  ys 
+     //cons: List.cons!(xs.head, concat!(xs.tail, ys))
+    //}
+//jogario:_
+//List.show!(Na:t.show,concat!([1,2,3],[4,5]))  
+
+// Applies a function to all elements of a list
+map<A: Type, B: Type>(fn: A -> B, xs: List<A>): List<B>
+      case xs {
+        //nil: []
+        //cons: List.cons!(fn(xs.head), map!!(fn,xs.tail))
+      //}
+//jogario:_
+// List.show!(Nat.show,map!!(inc,([1,2,3,4,5])))
+
+
+// Returns the same list, with the order reversed
+
+                         //é o robaldinho//
+reverse<A: Type>(xs: List<A> b: List<A>): List<A>
+  case xs {
+    nil: b
+    cons: reverse!(xs.tail, List.cons!(xs.head, b))
+    
+   }
+jogario:_
+List.show!(Nat.show,reverse!([3,2,1], []))
+
+
+
+
+ 
+// Advanced exercises involving Lists
+
+//type Maybe <A: Type> {
+  //none
+  //some(value: A)
+//}
+
+// Returns pairs of the elements of the 2 input lists on the same index
+// Ex: zip!!([1,2], ["a","b","c"]) == [{1, "a"}, {2 , "b"}]
+// Ex: zip!!(["a", "b"], [3, 5])   == [{"a", 3}, {"b" , 5}]
+//zip<A: Type, B: Type>(xs: List<A>, ys: List<B>): List<Pair<A,B>>
+   //case xs { 
+     //nil: []
+     //cons: case ys {
+             //nil: []
+             //cons: List.cons!(Pair.new!!(xs.head, ys.head), zip!!(xs.tail, ys.tail))
+           //}  
+   //}
+
+//jogario:_
+//  List.show!(Pair.show!!(Nat.show,(x)x),zip!!([1,2,3],["a","b","c"]))  
+
+//List.show<Pair<Nat, String>>(Pair.show<Nat, String>(Nat.show, (x)x), zip<Nat, String>([1,2,3],["a","b","c"]))   
+//List.show<A: Type>(f: A -> String, xs: List<A>): String
+//List<Pair<A,B>>
+//List<A> A = Pair<A,B>
+
+// Returns the smallest element of a List
+maxnat(a: Nat, b: Nat): Nat
+  case a b {
+    zero zero: 0 
+    zero succ: b
+    succ zero: a
+    succ succ:Nat.succ(minnat(a.pred, b.pred))
+  }
+
+
+minnat(a: Nat, b: Nat): Nat
+  case a {
+    zero: 0
+    succ: case b {
+            zero: 0
+            succ: Nat.succ(minnat(a.pred, b.pred))
+            
+          } 
+  }
+
+//jogario:_
+//  minnat(25,30)
+
+
+
+
+small(xs: List<Nat>): Nat
+  case xs {
+    nil:  0
+    cons: case xs.tail {
+            nil: xs.head 
+            cons: small(List.cons!(minnat(xs.head, xs.tail.head), xs.tail.tail))
+  }  
+}
+
+
+
+// jogario:_
+// small([5,3,2,3,6,3])
+
+// Returns the same list without the smallest element
+dsmall(xs: List<Nat>): List<Nat>
+  case xs { 
+    nil: []
+    cons:peneira2(Nat.gte(small(xs)),xs)
+
+  }
+//jogario:_
+
+//List.show!(Nat.show,dsmall([5,8,3,0,7,4]))
+            
+                 
+
+//peneira(fn: Nat -> Bool, a: List<Nat>): List<Nat>   
+  //case a {
+    //nil:[]
+    //cons:
+      //case fn(a.head) { 
+        //true: List.cons!(a.head, peneira(fn,a.tail))
+        //false: peneira(fn,a.tail)               
+
+      //}         
+  //}
+
+//jogario:_
+ //let a = [1,2,3,4]
+ //let b = [4,3,2,1]
+ //let c = [4,3,1,2]
+ //let d = [95,5,5,5,5,5,7,8,9]
+  //List.show!(Nat.show, dsmall(d))
+
+
+
+//[7,2,3,5,6]
+//head  -> 7 
+//tail -> 2,3,5,6
+//head.tail -> 2 
+//tail.tail -> 3,5,6
+//head.tail + tail.tail -> 2,3,5,6
+
+
+
+ 
+// Returns the same list, in ascending order
+
+acende(xs: List<Nat>): List<Nat>
+  case xs { 
+    nil: []
+    cons:List.cons!(small(xs), acende(dsmall(xs))) 
+
+
+          
+   }
+
+//jogario:_
+//List.show!(Nat.show,acende([5,0,5,8]))
+
+
+
+
+peneira2(fn: Nat -> Bool, a: List<Nat>): List<Nat>   
+  case a {
+    nil:[]
+    cons:
+      case fn(a.head) { 
+        false: List.cons!(a.head, peneira2(fn,a.tail))
+        true: peneira2(fn,a.tail)               
+
+      }         
+  }
+
+
+    
+
+ 
+// Returns an element at an index from the list
+// if there is an element at that index
+//   returns Maybe.some!(element)
+// else
+//   returns Maybe.none!
+get<A: Type>(idx: Nat, xs: List<A>): Maybe<A>
+  case xs { 
+  nil: none
+  cons: case idx { 
+        zero: Maybe.some!(xs.head) 
+        succ: get!(idx.pred, xs.tail)
+        }
+  }
+
+  
+jogario:_
+ get!(3,["a","b","c","d","e","f"])
+
+// Removes all elements that does not match a condition
+// List.filter<Nat>(Nat.odd, [1, 2, 3, 4, 5]) = [1, 3, 5]
+//filter<A: Type>(f: A -> Bool, xs: List<A>): List<A>
+  //case xs { 
+   //nil: []
+   //cons: 
+    //case xs f(xs.head) {
+      //true: List.cons!(xs.head, filter(f, xs.tail))
+      //false: filter(f,xs.tail)
+    //}
+  //} 
+
