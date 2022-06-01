@@ -1,3 +1,5 @@
+// Integer Exercises
+
 // Integers
 type Inte { 
   neg(num: Neg)
@@ -247,8 +249,8 @@ mul(a: Inte, b: Inte): Inte
                 }          
          }
   }
-inte:_
-  inte_show(mul(Inte.pos(Pos.succ(Pos.succ(Pos.zero))), (Inte.pos(Pos.succ(Pos.zero)))))
+//inte:_
+//  inte_show(mul(Inte.pos(Pos.succ(Pos.succ(Pos.zero))), (Inte.pos(Pos.succ(Pos.zero)))))
 
 wololo(a: Neg): Pos
   case a {
@@ -412,19 +414,24 @@ max(a: Inte, b: Inte): Inte // if A > B then A else B
 // int(true,  6) = +3
 hlf(a: Inte): Inte
   case a {
-  neg: case a.num {
-         one: Inte.pos(Pos.zero)
-         pred: dec(hlf(inc(inc(a))))
-       }  
-  pos: case a.num {
-        zero: Inte.pos(Pos.zero)
-        succ: inc(hlf(dec(dec(a))))
+    neg: case a.num {
+           one: Inte.pos(Pos.zero)
+           pred: case a.num.succ { 
+                 one:  Inte.neg(Neg.one)
+                 pred: dec(hlf(inc(inc(a))))
+               }    
+       } 
+    pos: case a.num {
+           zero: Inte.pos(Pos.zero)
+           succ: inc(hlf(dec(dec(a))))
        }
   }
  
    
-// inte:_ 
-//  inte_show(hlf(Inte.neg(Neg.one)))
+
+
+//inte:_ 
+//  hlf(Inte.neg(Neg.pred(Neg.pred(Neg.one))))
 
 // Division
 // int(true,  2)  / int(true,  2)  = +1
@@ -447,13 +454,13 @@ hlf(a: Inte): Inte
 
 
 
-divaux(a: Inte b: Inte c: Inte) Inte
-  case a b { 
-    neg neg: case (wololo(a.num )){ 
-               zero: ?e
-               succ: ?t
-               }
-    neg pos:?a
-    pos neg:?b
-    pos pos:?c
-  }  
+//divaux(a: Inte b: Inte c: Inte) Inte
+  //case a b { 
+    //neg neg: case (wololo(a.num )){ 
+               //zero: ?e
+               //succ: ?t
+               //}
+    //neg pos:?a
+    //pos neg:?b
+    //pos pos:?c
+  //}  
